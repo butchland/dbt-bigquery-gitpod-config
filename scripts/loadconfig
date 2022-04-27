@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ ! -e .gitpod.yml ]; then
+    echo Updating dbt-bigquery-gitpod-config...
+    curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/config/.gitpod.yml -o .gitpod.yml
+    curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/config/gitpod-dbt-profiles.yml -o gitpod-dbt-profiles.yml
+    curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/config/gitpod-vscode-settings.json -o gitpod-vscode-settings.json
+else
+    echo ".gitpod.yml already exists, rename it to something else first before running this loadconfig script"
+fi
+if [ ! -e .gitignore ]; then
+    echo "Adding .gitignore file"
+    curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/config/.gitignore -o .gitignore
+else
+    echo ".gitignore already exists"
+    echo "make sure the following entries are included:"
+    echo ".credentials/"
+    echo ".vscode/"
+    echo "venv"
+fi
+echo Done.
+
+
+

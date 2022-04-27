@@ -1,0 +1,49 @@
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+
+
+tasks:
+  - name: term1
+    init: |
+      virtualenv -p /home/gitpod/.pyenv/shims/python3 venv
+      source venv/bin/activate
+      pip install -r requirements.txt
+    command: |
+      unset CREDENTIALS_JSON
+      mkdir -p $HOME/.dbt
+      [ ! -e $HOME/.dbt/profiles.yml ] && cp gitpod-dbt-profiles.yml $HOME/.dbt/profiles.yml 
+      source deactivate
+      source venv/bin/activate
+      export GOOGLE_APPLICATION_CREDENTIALS=$GITPOD_REPO_ROOT/.credentials/service-account.json
+      gp sync-done term1
+
+  - name: term2
+    init: |
+      sudo apt-get install -y apt-transport-https ca-certificates gnupg gettext
+      echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+      curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+      sudo apt-get update && sudo apt-get install -y google-cloud-cli
+      mkdir -p .credentials
+      echo $CREDENTIALS_JSON >> .credentials/service-account.json
+      export PROJECT_ID=$(cat .credentials/service-account.json | jq '.project_id' | tr -d '"')
+      unset CREDENTIALS_JSON
+      mkdir -p .vscode
+      [ ! -e .vscode/settings.json ] && cat gitpod-vscode-settings.json | sed -E 's/\$\$([A-Z]+)\$\$/${\1}/g' | envsubst >> temp-gitpod-vscode-settings.json
+      [ ! -e .vscode/settings.json ] && mv temp-gitpod-vscode-settings.json .vscode/settings.json
+      gp env GOOGLE_APPLICATION_CREDENTIALS=$GITPOD_REPO_ROOT/.credentials/service-account.json
+      gp env PROJECT_ID=$(cat .credentials/service-account.json | jq '.project_id' | tr -d '"')
+    command: |
+      export GOOGLE_APPLICATION_CREDENTIALS=$GITPOD_REPO_ROOT/.credentials/service-account.json
+      export PROJECT_ID=$(cat .credentials/service-account.json | jq '.project_id' | tr -d '"')
+      unset CREDENTIALS_JSON
+      source venv/bin/activate
+      gp sync-await term1
+      dbt docs generate
+      dbt docs serve --no-browser --port 3000
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 3000
+    onOpen: open-browser
+vscode:
+  extensions:
+    [ms-python.python, samuelcolvin.jinjahtml, butchland.vscode-dbt-bigquery-power-user]

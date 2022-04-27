@@ -1,0 +1,14 @@
+hn_demo:
+  outputs:
+    dev:
+      dataset: dbt_butch
+      location: US
+      method: service-account
+      priority: interactive
+      project: "{{ env_var('PROJECT_ID') }}"
+      keyfile: "{{ env_var('GITPOD_REPO_ROOT') }}/.credentials/service-account.json"
+      retries: 1
+      threads: 1
+      timeout_seconds: 300
+      type: bigquery
+  target: dev
