@@ -5,6 +5,7 @@ if [ ! -e .gitpod.yml ]; then
     curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/config/.gitpod.yml -o .gitpod.yml
     curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/config/gitpod-dbt-profiles.yml -o gitpod-dbt-profiles.yml
     curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/config/gitpod-vscode-settings.json -o gitpod-vscode-settings.json
+    curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/config/requirements.txt -o requirements.txt
 else
     echo ".gitpod.yml already exists, rename it to something else first before running this loadconfig script"
 fi

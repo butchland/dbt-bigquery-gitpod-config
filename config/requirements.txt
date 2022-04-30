@@ -1,0 +1,7 @@
+dbt-core
+dbt-postgres
+dbt-bigquery
+dbt-snowflake
+dbt-redshift
+dbt-extractor
+sqlfluff
