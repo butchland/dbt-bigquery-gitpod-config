@@ -1,8 +1,9 @@
 
 target/
-dbt_modules/
+dbt_packages/
 logs/
 .credentials/
 .vscode/
 venv
+.extensions/
 
