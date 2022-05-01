@@ -14,13 +14,18 @@ tasks:
 
   - name: term2
     init: |
-      [ ! -e venv ] && virtualenv -p /home/gitpod/.pyenv/shims/python3 venv
+      virtualenv -p /home/gitpod/.pyenv/shims/python3 venv
       source venv/bin/activate
       pip install -r requirements.txt
       echo Done install python requirements
       sudo apt-get install -y gettext
+      # sudo apt-get install -y apt-transport-https ca-certificates gnupg gettext
+      # echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+      # curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+      # sudo apt-get update && sudo apt-get install -y google-cloud-cli
+      # echo Done install gcloud
       mkdir -p .credentials
-      [ ! -e .credentials/service-account.json ] && echo $CREDENTIALS_JSON >> .credentials/service-account.json
+      echo $CREDENTIALS_JSON >> .credentials/service-account.json
       export GOOGLE_APPLICATION_CREDENTIALS=$GITPOD_REPO_ROOT/.credentials/service-account.json
       gp env GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
       export PROJECT_ID=$(cat .credentials/service-account.json | jq '.project_id' | tr -d '"')
@@ -35,7 +40,7 @@ tasks:
       export PROJECT_ID=$(cat .credentials/service-account.json | jq '.project_id' | tr -d '"')
       echo PROJECT_ID set to $PROJECT_ID
       echo GOOGLE_APPLICATION_CREDENTIALS set to $GOOGLE_APPLICATION_CREDENTIALS
-      echo vscode settings: 
+      echo vscode settings 
       cat .vscode/settings.json
       unset CREDENTIALS_JSON
       source deactivate
