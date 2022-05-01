@@ -1,7 +1,7 @@
-hn_demo:
+name: 'sample_dbt_learn_project':
   outputs:
     dev:
-      dataset: dbt_butch
+      dataset: jaffle_shop
       location: US
       method: service-account
       priority: interactive
