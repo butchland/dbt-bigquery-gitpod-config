@@ -42,11 +42,22 @@ If you already have an existing `.gitignore` file, make sure the following entri
 * `.credentials`
 * `.vscode`
 * `venv`
+* `.extensions`
+
 
 After running script, you should now commit these new files to your version control and push the changes to the remote repository. You can then delete the gitpod workspace and create a new workspace by either clicking the Gitpod button or opening the link [https://gitpod.io/#\<your-repo-url\>](https://gitpod.io/#your-repo-url). 
 
 The new `gitpod.yml` configuration will then update the `.vscode/settings.ini` for vscode's dbt integration and also setup `dbt_profiles.yml` for your bigquery project in the `$HOME/.dbt` folder (which are not persisted across sessions in the gitpod environment).
 
 You can edit these configuration files to further customize your gitpod environment.
+
+> **IMPORTANT**: Copy the section (especially profile_name and dataset) for your project from your local `dbt_profiles.yml` to the `gitpod-dbt-profiles.yml` as the gitpod config will refresh this each time it starts your gitpod workspace. The same thing applies to your `.vscode/settings.json` which is copied over from the `gitpod-vscode-settings.json` if it doesn't exist yet.
+
+## Adding Gitpod VS Code extensions
+
+If you would like to add VS Code extensions that are already available in the [Open VSX Registry](https://open-vsx.org/), just add them in the relevant section (`vscode/extensions`) of your  `.gitpod.yml`
+
+For other extensions that are not yet available in the Open VSX Registry, you can download the extension and push it into any internet accessible location (e.g. github) and update your `.gitpod.yml` to download them into your gitpod workspace and install into your gitpod VSCode editor. The current `.gitpod.yml` already installs the [vscode-dbt](https://marketplace.visualstudio.com/items?itemName=bastienboutonnet.vscode-dbt) and [sqlfluff](https://marketplace.visualstudio.com/items?itemName=dorzey.vscode-sqlfluff) VS Code extensions by default.
+
 
 If you have issues and suggestions please file an issue in the github issue tab.  
