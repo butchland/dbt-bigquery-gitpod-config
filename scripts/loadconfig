@@ -17,7 +17,9 @@ else
     echo "make sure the following entries are included:"
     echo ".credentials/"
     echo ".vscode/"
+    echo ".extensions"
     echo "venv"
+    echo
 fi
 echo Done.
 
