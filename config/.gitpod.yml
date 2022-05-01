@@ -3,8 +3,18 @@
 
 tasks:
   - name: term1
+    init: |
+      mkdir -p .extensions
+      curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/extensions/bastienboutonnet.vscode-dbt-0.5.1.vsix -o .extensions/bastienboutonnet.vscode-dbt-0.5.1.vsix
+      curl -s https://raw.githubusercontent.com/butchland/dbt-bigquery-gitpod-config/main/extensions/vscode-sqlfluff-0.0.5.vsix -o .extensions/vscode-sqlfluff-0.0.5.vsix
+      echo Done downloading extensions
+
     command: |
       unset CREDENTIALS_JSON
+      gp await-port 23000 
+      code --install-extension .extensions/bastienboutonnet.vscode-dbt-0.5.1.vsix
+      code --install-extension .extensions/vscode-sqlfluff-0.0.5.vsix
+      echo Done installing extensions
       gp sync-await term2
       export GOOGLE_APPLICATION_CREDENTIALS=$GITPOD_REPO_ROOT/.credentials/service-account.json
       export PROJECT_ID=$(cat .credentials/service-account.json | jq '.project_id' | tr -d '"')
@@ -19,11 +29,6 @@ tasks:
       pip install -r requirements.txt
       echo Done install python requirements
       sudo apt-get install -y gettext
-      # sudo apt-get install -y apt-transport-https ca-certificates gnupg gettext
-      # echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-      # curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-      # sudo apt-get update && sudo apt-get install -y google-cloud-cli
-      # echo Done install gcloud
       mkdir -p .credentials
       echo $CREDENTIALS_JSON >> .credentials/service-account.json
       export GOOGLE_APPLICATION_CREDENTIALS=$GITPOD_REPO_ROOT/.credentials/service-account.json
@@ -59,4 +64,4 @@ ports:
     onOpen: open-preview
 vscode:
   extensions:
-    [ms-python.python, ms-toolsai.jupyter,ms-toolsai.jupyter-keymap,ms-toolsai.jupyter-renderers, samuelcolvin.jinjahtml, butchland.vscode-dbt-bigquery-power-user]
+    [ms-python.python, ms-toolsai.jupyter,ms-toolsai.jupyter-keymap,ms-toolsai.jupyter-renderers, samuelcolvin.jinjahtml, butchland.vscode-dbt-bigquery-power-user, dorzey.vscode-sqlfluff, bastienboutonnet.vscode-dbt]
