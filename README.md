@@ -25,15 +25,16 @@ extension called Gitpod that displays a **Gitpod** button on your repo's web pag
 ```
 curl -s https://raw.githubusercontent.com/butchland/dbt-gitpod-config/main/scripts/loadconfig | bash
 ```
-This will copy over the following files:
-* `gitpod.yml`
+This will copy over the following files from the `config` directory:
+* `.gitpod.yml`
 * `gitpod-dbt-profiles.yml`
 * `gitpod-vscode-settings.json`
+* `requirements.txt`
 * `.gitignore` - (optional, will only copy if it doesn't exist yet)
 
-This assumes of course, that you haven't configured your gitpod configuration file `gitpod.yml` in your project yet.
+This assumes of course, that you haven't configured your gitpod configuration file `.gitpod.yml` in your project yet.
 
-_If you have an existing `gitpod.yml` file, rename it temporarily to something else before running the previous `curl` command (make sure to merge the contents of the original `gitpod.yml` you renamed with the `gitpod.yml` that was copied over by the `curl` command afterwards)._ 
+_If you have an existing `.gitpod.yml` file, rename it temporarily to something else before running the previous `curl` command (make sure to merge the contents of the original `.gitpod.yml` you renamed with the `.gitpod.yml` that was copied over by the `curl` command afterwards)._ 
 
 Then in the **Gitpod Variables** page [gitpod.io/variables](https://gitpod.io/variables), create a new variable named `CREDENTIALS_JSON` with the scope for your `username/<project-name>`. Copy the entire contents of the service account json file into the value field for the variable.
 
