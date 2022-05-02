@@ -1,4 +1,4 @@
-name: 'sample_dbt_learn_project':
+sample_dbt_learn_project:
   outputs:
     dev:
       dataset: jaffle_shop
