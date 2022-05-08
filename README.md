@@ -5,6 +5,9 @@
 
 This repository documents how you can use `dbt` with `BigQuery` in [Gitpod](https://www.gitpod.io/)'s web-based VS Code environment. It leverages the [vscode-dbt-bigquery-power-user](https://marketplace.visualstudio.com/items?itemName=butchland.vscode-dbt-bigquery-power-user) VS Code extension to provide a powerful online coding environment using `dbt` that almost matches a desktop VS Code experience.
 
+## Quickstart
+
+If you want to try using dbt on gitpod using  `VS Code DBT BigQuery Power User` extension, you can follow the [instructions](quickstart.md) here. 
 
 ## Requirements
 
