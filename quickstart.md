@@ -72,7 +72,7 @@ curl -s https://raw.githubusercontent.com/butchland/dbt-gitpod-config/main/scrip
 
 ![VS Code DBT Biq Query Power User Extension](https://raw.githubusercontent.com/butchland/vscode-dbt-bigquery-power-user/master/images/query-runner-screenshot.png)
 
-Lastly, several additional VS Code extensions that make your dbt development have also installed in your workspace environment:
+Lastly, several additional VS Code extensions that improves your dbt development experience have also installed in your workspace environment:
 
 * **[vscode-dbt](https://marketplace.visualstudio.com/items?itemName=bastienboutonnet.vscode-dbt)** - VSCode Snippet Package for jinja and dbt
 * **[sqlfluff](https://marketplace.visualstudio.com/items?itemName=dorzey.vscode-sqlfluff)** - A linter and auto-formatter for SQLfluff, a popular linting tool for SQL and dbt
